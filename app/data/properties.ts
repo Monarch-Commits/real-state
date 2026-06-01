@@ -118,3 +118,12 @@ export const PROPERTIES: Property[] = [
     type: 'Villa',
   },
 ];
+
+export type Agent = {
+  name: string;
+  role: string;
+  location: string;
+  phone: string;
+  email: string;
+  image: string;
+};

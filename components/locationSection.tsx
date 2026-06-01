@@ -14,7 +14,8 @@ const LOCATIONS = [
 
 export default function LocationSection() {
   return (
-    <section className="relative bg-neutral-950 py-24 sm:py-32">
+    <section className="relative overflow-hidden bg-[#0f0f10] py-24 sm:py-32">
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* HEADER */}
         <header className="mb-20 max-w-3xl">

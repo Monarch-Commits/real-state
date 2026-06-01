@@ -29,7 +29,8 @@ const FEATURES = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="relative bg-neutral-950 py-24 sm:py-32">
+    <section className="relative bg-[#0f0f10] py-24 sm:py-32">
+      <div className="absolute inset-0 overflow-hidden bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* HEADER */}
         <div className="mb-20 max-w-3xl">

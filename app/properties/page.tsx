@@ -67,8 +67,9 @@ export default function Page() {
       </section>
 
       {/* GRID */}
-      <section className="py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="relative bg-[#0f0f10] py-24 sm:py-28">
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {items.map((property, i) => (
               <Link key={property.id} href={`/properties/${property.id}`}>

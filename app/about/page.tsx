@@ -111,8 +111,9 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <section className="relative border-t border-white/10 bg-[#0f0f10]">
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
+        <div className="relative mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
           <h2 className="text-3xl font-medium text-white sm:text-4xl">
             Ready to find your dream property?
           </h2>

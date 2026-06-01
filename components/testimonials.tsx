@@ -36,9 +36,10 @@ const TESTIMONIALS = [
 export default function Testimonials() {
   return (
     <section
-      className="bg-neutral-950 py-24 sm:py-32"
+      className="relative bg-[#0f0f10] py-24 sm:py-32"
       aria-label="Client testimonials"
     >
+      <div className="absolute inset-0 overflow-hidden bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* HEADER */}
         <header className="mb-20 max-w-3xl">
