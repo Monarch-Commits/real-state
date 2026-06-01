@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { MapPin, Bed, Bath } from 'lucide-react';
 import { PROPERTIES } from '@/app/data/properties';
+import Link from 'next/link';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -20,6 +21,8 @@ export default async function PropertyDetails({ params }: Props) {
     'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=70',
     'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=70',
     'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1600&q=80',
+    'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80',
+    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80',
   ];
 
   return (
@@ -74,13 +77,19 @@ export default async function PropertyDetails({ params }: Props) {
 
           {/* CTA */}
           <div className="flex gap-3">
-            <button className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-neutral-200">
+            <Link
+              href="/scheduleViewing"
+              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-neutral-200 active:scale-[0.98]"
+            >
               Schedule Viewing
-            </button>
+            </Link>
 
-            <button className="rounded-full border border-white/10 px-6 py-3 text-sm text-white transition hover:bg-white/5">
+            <Link
+              href="/agents"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition-all duration-200 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:scale-[0.98] sm:w-auto"
+            >
               Contact Agent
-            </button>
+            </Link>
           </div>
         </div>
 

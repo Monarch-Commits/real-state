@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { MapPin, Bed, Bath } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const PROPERTIES = [
+export const PROPERTIES = [
   {
     id: 1,
     title: 'Modern Luxury Villa',
@@ -13,8 +13,12 @@ const PROPERTIES = [
     price: '₱45,000,000',
     beds: 4,
     baths: 4,
+    description:
+      'A premium villa located in the heart of BGC with modern architecture and smart home features.',
+    features: ['Pool', 'Smart Home', 'Garden'],
     image:
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80',
+    type: 'Villa',
   },
   {
     id: 2,
@@ -23,8 +27,11 @@ const PROPERTIES = [
     price: '₱32,000,000',
     beds: 3,
     baths: 3,
+    description: 'A clean minimalist glass home surrounded by nature.',
+    features: ['Glass Walls', 'Nature View', 'Open Layout'],
     image:
       'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1600&q=80',
+    type: 'Condo',
   },
   {
     id: 3,
@@ -33,8 +40,11 @@ const PROPERTIES = [
     price: '₱68,000,000',
     beds: 5,
     baths: 5,
+    description: 'Luxury penthouse overlooking Makati skyline.',
+    features: ['City View', 'Elevator Access', 'Private Deck'],
     image:
       'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80',
+    type: 'Condo',
   },
   {
     id: 4,
@@ -43,28 +53,37 @@ const PROPERTIES = [
     price: '₱38,500,000',
     beds: 4,
     baths: 3,
+    description: 'Beachfront modern estate perfect for relaxation.',
+    features: ['Beachfront', 'Pool', 'Sun Deck'],
     image:
       'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1600&q=80',
+    type: 'Villa',
   },
   {
     id: 5,
-    title: 'Urban Smart Condo',
-    location: 'Ortigas Center',
+    title: 'Urban Smart Condo Suite',
+    location: 'Ortigas Center, Pasig',
     price: '₱18,000,000',
     beds: 2,
     baths: 2,
+    description: 'Smart condo unit in the business district.',
+    features: ['Smart Lock', 'Gym Access', 'City Center'],
     image:
       'https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=1600&q=80',
+    type: 'Condo',
   },
   {
     id: 6,
     title: 'Private Hillside Mansion',
-    location: 'Antipolo',
+    location: 'Antipolo, Rizal',
     price: '₱55,000,000',
     beds: 6,
     baths: 5,
+    description: 'Exclusive mansion with mountain view.',
+    features: ['Hill View', 'Infinity Pool', 'Private Gate'],
     image:
       'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1600&q=80',
+    type: 'Villa',
   },
 ];
 
@@ -91,56 +110,57 @@ export default function FeaturedProperties() {
         {/* GRID */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {PROPERTIES.map((property, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="group block overflow-hidden rounded-md"
-            >
-              {/* IMAGE */}
-              <div className="relative h-[340px] overflow-hidden rounded-md">
-                <Image
-                  src={property.image}
-                  alt={property.title}
-                  fill
-                  className="object-cover transition duration-200 group-hover:scale-102"
-                />
+            <Link key={property.id} href={`/properties/${property.id}`}>
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="group block overflow-hidden rounded-md"
+              >
+                {/* IMAGE */}
+                <div className="relative h-[340px] overflow-hidden rounded-md">
+                  <Image
+                    src={property.image}
+                    alt={property.title}
+                    fill
+                    className="object-cover transition duration-200 group-hover:scale-102"
+                  />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              </div>
-
-              {/* CONTENT */}
-              <div className="mt-4 space-y-2">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-medium text-white">
-                    {property.title}
-                  </h3>
-
-                  <span className="text-sm text-amber-400">
-                    {property.price}
-                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 </div>
 
-                <div className="flex items-center gap-1 text-sm text-neutral-400">
-                  <MapPin className="h-4 w-4" />
-                  {property.location}
-                </div>
+                {/* CONTENT */}
+                <div className="mt-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-medium text-white">
+                      {property.title}
+                    </h3>
 
-                <div className="flex gap-4 text-sm text-neutral-400">
-                  <span className="flex items-center gap-1">
-                    <Bed className="h-4 w-4" />
-                    {property.beds}
-                  </span>
+                    <span className="text-sm text-amber-400">
+                      {property.price}
+                    </span>
+                  </div>
 
-                  <span className="flex items-center gap-1">
-                    <Bath className="h-4 w-4" />
-                    {property.baths}
-                  </span>
+                  <div className="flex items-center gap-1 text-sm text-neutral-400">
+                    <MapPin className="h-4 w-4" />
+                    {property.location}
+                  </div>
+
+                  <div className="flex gap-4 text-sm text-neutral-400">
+                    <span className="flex items-center gap-1">
+                      <Bed className="h-4 w-4" />
+                      {property.beds}
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <Bath className="h-4 w-4" />
+                      {property.baths}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
         </div>
 

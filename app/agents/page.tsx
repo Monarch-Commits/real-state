@@ -74,7 +74,7 @@ const AGENTS: Agent[] = [
 
 export default function AgentsPage() {
   return (
-    <main className="bg-neutral-950">
+    <main className="bg-neutral-950 pt-16 lg:pt-20">
       {/* HEADER */}
       <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div className="max-w-2xl">

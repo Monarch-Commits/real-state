@@ -9,50 +9,59 @@ import { PROPERTIES } from '../data/properties';
 
 export default function Page() {
   const [visible, setVisible] = useState(6);
+  const [filter, setFilter] = useState<'All' | 'Villa' | 'Condo'>('All');
 
-  const loadMore = () => {
-    setVisible((prev) => prev + 3);
-  };
+  const filtered =
+    filter === 'All' ? PROPERTIES : PROPERTIES.filter((p) => p.type === filter);
 
-  const visibleProperties = PROPERTIES.slice(0, visible);
+  const items = filtered.slice(0, visible);
+
+  const filters = ['All', 'Villa', 'Condo'] as const;
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-white">
+    <main className="min-h-screen bg-neutral-950 pt-16 text-white lg:pt-20">
       {/* HERO */}
       <section className="border-b border-white/5 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <p className="text-xs font-medium tracking-[0.3em] text-neutral-500 uppercase">
+          <p className="text-[11px] tracking-[0.35em] text-neutral-500 uppercase">
             Exclusive Listings
           </p>
 
-          <h1 className="mt-5 text-5xl leading-[1.05] font-medium sm:text-6xl lg:text-7xl">
-            Discover <span className="text-amber-400">Luxury Properties</span>
+          <h1 className="mt-6 text-5xl leading-[1.05] font-medium sm:text-6xl lg:text-7xl">
+            Discover <span className="text-amber-400">Luxury Homes</span>
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-400">
-            Handpicked homes across the Philippines curated for modern living,
-            long-term value, and architectural excellence.
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-400">
+            Handpicked properties across the Philippines curated for modern
+            living, long-term value, and architectural excellence.
           </p>
         </div>
       </section>
 
-      {/* FILTER */}
-      <section className="sticky top-0 z-10 border-b border-white/5 bg-neutral-950/80 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <p className="text-sm text-neutral-400">
-            Showing {PROPERTIES.length} properties
+      {/* FILTER BAR */}
+      <section className="sticky top-0 z-20 border-b border-white/5 bg-neutral-950/70 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+          <p className="text-sm text-neutral-500">
+            {filtered.length} properties
           </p>
 
-          <div className="flex gap-3 text-xs text-neutral-400">
-            <button className="rounded-full border border-white/10 px-4 py-2 hover:text-white">
-              All
-            </button>
-            <button className="rounded-full border border-white/10 px-4 py-2 hover:text-white">
-              Villas
-            </button>
-            <button className="rounded-full border border-white/10 px-4 py-2 hover:text-white">
-              Condos
-            </button>
+          <div className="flex gap-2 overflow-x-auto">
+            {filters.map((item) => (
+              <button
+                key={item}
+                onClick={() => {
+                  setFilter(item);
+                  setVisible(6);
+                }}
+                className={`rounded-full px-5 py-2 text-sm whitespace-nowrap transition ${
+                  filter === item
+                    ? 'bg-white text-black'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                {item}
+              </button>
+            ))}
           </div>
         </div>
       </section>
@@ -60,46 +69,49 @@ export default function Page() {
       {/* GRID */}
       <section className="py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {visibleProperties.map((property, i) => (
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {items.map((property, i) => (
               <Link key={property.id} href={`/properties/${property.id}`}>
                 <motion.div
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: i * 0.08 }}
+                  transition={{ duration: 0.6, delay: i * 0.06 }}
                   viewport={{ once: true }}
-                  className="group cursor-pointer overflow-hidden rounded-3xl border border-white/5 bg-white/[0.02] transition hover:border-white/10"
+                  className="group overflow-hidden rounded-md border border-white/5 bg-white/[0.02] transition hover:border-white/10"
                 >
                   {/* IMAGE */}
-                  <div className="relative h-[340px] overflow-hidden">
+                  <div className="relative h-[360px] overflow-hidden">
                     <Image
                       src={property.image}
                       alt={property.title}
                       fill
-                      className="object-cover transition duration-500 group-hover:scale-105"
+                      className="object-cover transition duration-700 group-hover:scale-105"
                     />
 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+
+                    {/* BADGES */}
+                    <div className="absolute top-4 left-4 rounded-full bg-black/50 px-3 py-1 text-[11px] text-amber-400 backdrop-blur-md">
+                      {property.type}
+                    </div>
+
+                    <div className="absolute top-4 right-4 rounded-full bg-black/50 px-3 py-1 text-[11px] text-white backdrop-blur-md">
+                      {property.price}
+                    </div>
                   </div>
 
                   {/* CONTENT */}
                   <div className="space-y-3 p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <h2 className="text-lg font-medium text-white">
-                        {property.title}
-                      </h2>
+                    <h3 className="text-lg font-medium text-white transition group-hover:text-amber-400">
+                      {property.title}
+                    </h3>
 
-                      <span className="text-base font-medium text-amber-400">
-                        {property.price}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-1 text-sm text-neutral-400">
+                    <div className="flex items-center gap-1 text-sm text-neutral-500">
                       <MapPin className="h-4 w-4" />
                       {property.location}
                     </div>
 
-                    <div className="flex gap-6 text-sm text-neutral-400">
+                    <div className="flex gap-6 text-sm text-neutral-500">
                       <span className="flex items-center gap-1">
                         <Bed className="h-4 w-4" />
                         {property.beds}
@@ -117,13 +129,13 @@ export default function Page() {
           </div>
 
           {/* LOAD MORE */}
-          {visible < PROPERTIES.length && (
+          {visible < filtered.length && (
             <div className="mt-16 flex justify-center">
               <button
-                onClick={loadMore}
+                onClick={() => setVisible((v) => v + 3)}
                 className="rounded-full border border-white/10 px-8 py-3 text-sm text-white transition hover:border-white/20 hover:bg-white/5"
               >
-                Load More Properties
+                Load More
               </button>
             </div>
           )}

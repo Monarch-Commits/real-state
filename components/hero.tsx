@@ -55,24 +55,19 @@ export default function Hero() {
             {/* PRIMARY CTA */}
             <Link
               href="/properties"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all duration-200 hover:bg-neutral-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:scale-[0.98] sm:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all duration-200 hover:bg-neutral-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:scale-[0.98] sm:w-auto"
             >
               Explore Properties
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </Link>
 
             {/* SECONDARY CTA */}
-            <button
-              type="button"
-              onClick={() => console.log('Open booking modal')}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-white/20 bg-white/10 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition-all duration-200 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:scale-[0.98] sm:w-auto"
+            <Link
+              href="/agents"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition-all duration-200 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:scale-[0.98] sm:w-auto"
             >
-              <Calendar
-                className="h-4 w-4 text-neutral-300"
-                aria-hidden="true"
-              />
-              Book Viewing
-            </button>
+              Contact Agent
+            </Link>
           </div>
         </div>
       </div>

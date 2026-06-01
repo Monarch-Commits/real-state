@@ -5,7 +5,7 @@ import { CheckCircle, TrendingUp, Shield, Users } from 'lucide-react';
 
 export default function AboutPage() {
   return (
-    <main className="bg-neutral-950">
+    <main className="bg-neutral-950 pt-16 lg:pt-20">
       {/* HERO */}
       <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div className="max-w-3xl">

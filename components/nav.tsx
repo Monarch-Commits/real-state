@@ -1,16 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { Home, ArrowRight, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Properties', href: '/properties' },
   { label: 'Agents', href: '/agents' },
   { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
 ] as const;
 
 export default function Nav() {
@@ -59,13 +59,18 @@ export default function Nav() {
         }`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mt-4 flex items-center justify-between border-b border-white/10 bg-black/30 px-5 py-3 backdrop-blur-md">
+          <div className="mt-2 flex items-center justify-between border-b border-white/10 bg-black/30 px-5 py-3 backdrop-blur-md">
             {/* LOGO */}
-            <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-400/10">
-                <Home className="h-5 w-5 text-amber-400" />
-              </div>
 
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/logoforrealstate.svg"
+                alt=" Real Estate Logo"
+                width={50}
+                height={50}
+                className="rounded-lg"
+                priority
+              />
               <div className="leading-tight">
                 <h2 className="text-sm font-semibold tracking-[0.25em] text-white">
                   MODERN HOMES
@@ -91,10 +96,13 @@ export default function Nav() {
 
             {/* RIGHT ACTIONS */}
             <div className="flex items-center gap-3">
-              <button className="hidden items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:bg-neutral-200 lg:flex">
-                Browse
+              <Link
+                href="/contact"
+                className="hidden items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:bg-neutral-200 lg:flex"
+              >
+                Contact Us
                 <ArrowRight className="h-4 w-4" />
-              </button>
+              </Link>
 
               {/* MOBILE MENU BUTTON */}
               <button
@@ -140,9 +148,13 @@ export default function Nav() {
               );
             })}
 
-            <button className="mt-6 rounded-md bg-white px-6 py-3 text-sm font-medium text-black">
-              Browse Properties
-            </button>
+            <Link
+              href="/contact"
+              className="hidden items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:bg-neutral-200 lg:flex"
+            >
+              Contact Us
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       )}

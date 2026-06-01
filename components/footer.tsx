@@ -1,6 +1,15 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
+
+export const NAV_LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'Properties', href: '/properties' },
+  { label: 'Agents', href: '/agents' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+] as const;
 
 export default function Footer() {
   return (
@@ -10,9 +19,24 @@ export default function Footer() {
         <div className="grid gap-16 lg:grid-cols-3">
           {/* BRAND */}
           <div>
-            <h3 className="text-base font-medium tracking-[0.25em] text-white uppercase">
-              Modern Homes
-            </h3>
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/logoforrealstate.svg"
+                alt=" Real Estate Logo"
+                width={50}
+                height={50}
+                className="rounded-lg"
+                priority
+              />
+              <div className="leading-tight">
+                <h2 className="text-sm font-semibold tracking-[0.25em] text-white">
+                  MODERN HOMES
+                </h2>
+                <p className="text-[10px] tracking-[0.35em] text-white/50 uppercase">
+                  Real Estate
+                </p>
+              </div>
+            </Link>
 
             <p className="mt-6 max-w-sm text-base leading-7 text-neutral-400">
               A curated real estate platform focused on premium homes, refined
@@ -27,13 +51,13 @@ export default function Footer() {
             </p>
 
             <div className="mt-6 space-y-4 text-sm">
-              {['Properties', 'Agents', 'About', 'Contact'].map((item) => (
+              {NAV_LINKS.map((link) => (
                 <Link
-                  key={item}
-                  href="#"
+                  key={link.label}
+                  href={link.href}
                   className="block text-neutral-300 transition-colors hover:text-white"
                 >
-                  {item}
+                  {link.label}
                 </Link>
               ))}
             </div>

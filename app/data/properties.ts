@@ -8,6 +8,7 @@ export type Property = {
   description?: string;
   features?: string[];
   image: string;
+  type?: string;
 };
 
 export const PROPERTIES: Property[] = [
@@ -23,6 +24,7 @@ export const PROPERTIES: Property[] = [
     features: ['Pool', 'Smart Home', 'Garden'],
     image:
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80',
+    type: 'Villa',
   },
   {
     id: 2,
@@ -35,6 +37,7 @@ export const PROPERTIES: Property[] = [
     features: ['Glass Walls', 'Nature View', 'Open Layout'],
     image:
       'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1600&q=80',
+    type: 'Condo',
   },
   {
     id: 3,
@@ -47,6 +50,7 @@ export const PROPERTIES: Property[] = [
     features: ['City View', 'Elevator Access', 'Private Deck'],
     image:
       'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80',
+    type: 'Condo',
   },
   {
     id: 4,
@@ -59,6 +63,7 @@ export const PROPERTIES: Property[] = [
     features: ['Beachfront', 'Pool', 'Sun Deck'],
     image:
       'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1600&q=80',
+    type: 'Villa',
   },
   {
     id: 5,
@@ -71,6 +76,7 @@ export const PROPERTIES: Property[] = [
     features: ['Smart Lock', 'Gym Access', 'City Center'],
     image:
       'https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=1600&q=80',
+    type: 'Condo',
   },
   {
     id: 6,
@@ -83,6 +89,7 @@ export const PROPERTIES: Property[] = [
     features: ['Hill View', 'Infinity Pool', 'Private Gate'],
     image:
       'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1600&q=80',
+    type: 'Villa',
   },
   {
     id: 7,
@@ -95,6 +102,7 @@ export const PROPERTIES: Property[] = [
     features: ['Sea View', 'Dock', 'Private Beach'],
     image:
       'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1600&q=80',
+    type: 'Villa',
   },
   {
     id: 8,
@@ -107,5 +115,6 @@ export const PROPERTIES: Property[] = [
     features: ['Mountain Air', 'Garden', 'Open Terrace'],
     image:
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80',
+    type: 'Villa',
   },
 ];
