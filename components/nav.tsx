@@ -58,7 +58,7 @@ export default function Nav() {
           hidden ? '-translate-y-full' : 'translate-y-0'
         }`}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
           <div className="mt-2 flex items-center justify-between border-b border-white/10 bg-black/30 px-5 py-3 backdrop-blur-md">
             {/* LOGO */}
 
@@ -66,8 +66,8 @@ export default function Nav() {
               <Image
                 src="/logoforrealstate.svg"
                 alt=" Real Estate Logo"
-                width={50}
-                height={50}
+                width={40}
+                height={40}
                 className="rounded-lg"
                 priority
               />

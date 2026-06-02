@@ -17,7 +17,6 @@ export default function Page() {
   const y = useTransform(scrollY, [0, 800], [0, 180]);
   const scale = useTransform(scrollY, [0, 800], [1.05, 1.12]);
   const isDesktop = useMediaQuery('(min-width: 768px)');
-
   const filtered =
     filter === 'All' ? PROPERTIES : PROPERTIES.filter((p) => p.type === filter);
 
@@ -113,13 +112,7 @@ export default function Page() {
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {items.map((property) => (
-              <motion.div
-                key={property.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
+              <div key={property.id}>
                 <Link
                   href={`/properties/${property.id}`}
                   className="group block overflow-hidden rounded-xl border border-white/5 bg-white/[0.02] transition hover:border-white/10"
@@ -130,7 +123,7 @@ export default function Page() {
                       src={property.image}
                       alt={property.title}
                       fill
-                      className="object-cover transition duration-700 group-hover:scale-105"
+                      className="object-cover transition duration-300 group-hover:scale-103"
                     />
 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
@@ -169,7 +162,7 @@ export default function Page() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
 

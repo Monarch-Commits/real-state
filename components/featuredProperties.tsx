@@ -4,93 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Bed, Bath } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-export const PROPERTIES = [
-  {
-    id: 1,
-    title: 'Modern Luxury Villa',
-    location: 'BGC, Taguig',
-    price: '₱45,000,000',
-    beds: 4,
-    baths: 4,
-    description:
-      'A premium villa located in the heart of BGC with modern architecture and smart home features.',
-    features: ['Pool', 'Smart Home', 'Garden'],
-    image:
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80',
-    type: 'Villa',
-  },
-  {
-    id: 2,
-    title: 'Minimalist Glass House',
-    location: 'Alabang, Muntinlupa',
-    price: '₱32,000,000',
-    beds: 3,
-    baths: 3,
-    description: 'A clean minimalist glass home surrounded by nature.',
-    features: ['Glass Walls', 'Nature View', 'Open Layout'],
-    image:
-      'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1600&q=80',
-    type: 'Condo',
-  },
-  {
-    id: 3,
-    title: 'Skyline Penthouse',
-    location: 'Makati City',
-    price: '₱68,000,000',
-    beds: 5,
-    baths: 5,
-    description: 'Luxury penthouse overlooking Makati skyline.',
-    features: ['City View', 'Elevator Access', 'Private Deck'],
-    image:
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80',
-    type: 'Condo',
-  },
-  {
-    id: 4,
-    title: 'Seaside Modern Estate',
-    location: 'Batangas',
-    price: '₱38,500,000',
-    beds: 4,
-    baths: 3,
-    description: 'Beachfront modern estate perfect for relaxation.',
-    features: ['Beachfront', 'Pool', 'Sun Deck'],
-    image:
-      'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1600&q=80',
-    type: 'Villa',
-  },
-  {
-    id: 5,
-    title: 'Urban Smart Condo Suite',
-    location: 'Ortigas Center, Pasig',
-    price: '₱18,000,000',
-    beds: 2,
-    baths: 2,
-    description: 'Smart condo unit in the business district.',
-    features: ['Smart Lock', 'Gym Access', 'City Center'],
-    image:
-      'https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=1600&q=80',
-    type: 'Condo',
-  },
-  {
-    id: 6,
-    title: 'Private Hillside Mansion',
-    location: 'Antipolo, Rizal',
-    price: '₱55,000,000',
-    beds: 6,
-    baths: 5,
-    description: 'Exclusive mansion with mountain view.',
-    features: ['Hill View', 'Infinity Pool', 'Private Gate'],
-    image:
-      'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1600&q=80',
-    type: 'Villa',
-  },
-];
+import { PROPERTIES } from '@/app/data/properties';
+import { useMediaQuery } from './hooks/useMediaQuery';
 
 export default function FeaturedProperties() {
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+
   return (
     <section className="bg-neutral-950 py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* HEADER */}
         <div className="mb-12 max-w-2xl">
           <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase">
@@ -109,13 +31,10 @@ export default function FeaturedProperties() {
 
         {/* GRID */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {PROPERTIES.map((property, i) => (
-            <Link key={property.id} href={`/properties/${property.id}`}>
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-                viewport={{ once: true }}
+          {PROPERTIES.map((property, i) => {
+            const CardContent = (
+              <Link
+                href={`/properties/${property.id}`}
                 className="group block overflow-hidden rounded-md"
               >
                 {/* IMAGE */}
@@ -124,7 +43,7 @@ export default function FeaturedProperties() {
                     src={property.image}
                     alt={property.title}
                     fill
-                    className="object-cover transition duration-200 group-hover:scale-102"
+                    className="object-cover transition duration-300 group-hover:scale-105"
                   />
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -133,7 +52,7 @@ export default function FeaturedProperties() {
                 {/* CONTENT */}
                 <div className="mt-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-medium text-white">
+                    <h3 className="text-lg font-medium text-white transition group-hover:text-amber-400">
                       {property.title}
                     </h3>
 
@@ -159,9 +78,30 @@ export default function FeaturedProperties() {
                     </span>
                   </div>
                 </div>
-              </motion.div>
-            </Link>
-          ))}
+              </Link>
+            );
+
+            return (
+              <div key={property.id}>
+                {isDesktop ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.7,
+                      delay: i * 0.08,
+                      ease: 'easeOut',
+                    }}
+                    viewport={{ once: true, amount: 0.2 }}
+                  >
+                    {CardContent}
+                  </motion.div>
+                ) : (
+                  <div>{CardContent}</div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* VIEW ALL CTA */}

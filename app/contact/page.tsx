@@ -28,7 +28,7 @@ export default function ContactPage() {
       <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2">
           {/* FORM */}
-          <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:p-8">
             <h2 className="text-lg font-medium text-white">
               Send us a message
             </h2>
