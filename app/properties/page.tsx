@@ -6,6 +6,7 @@ import { MapPin, Bed, Bath } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState } from 'react';
 import { PROPERTIES } from '../data/properties';
+import { useMediaQuery } from '@/components/hooks/useMediaQuery';
 
 export default function Page() {
   const [visible, setVisible] = useState(6);
@@ -15,6 +16,7 @@ export default function Page() {
 
   const y = useTransform(scrollY, [0, 800], [0, 180]);
   const scale = useTransform(scrollY, [0, 800], [1.05, 1.12]);
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const filtered =
     filter === 'All' ? PROPERTIES : PROPERTIES.filter((p) => p.type === filter);
@@ -28,19 +30,32 @@ export default function Page() {
       {/* HERO */}
       <section className="relative flex min-h-[70vh] items-center overflow-hidden border-b border-white/5 py-24 sm:py-32">
         {/* BACKGROUND */}
-        <motion.div
-          style={{ y, scale }}
-          className="absolute inset-0 will-change-transform"
-        >
-          <Image
-            src="/bg.png"
-            alt="Modern luxury estate with pool"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center select-none"
-          />
-        </motion.div>
+        {isDesktop ? (
+          <motion.div
+            style={{ y, scale }}
+            className="absolute inset-0 will-change-transform"
+          >
+            <Image
+              src="/bg.png"
+              alt="Modern luxury estate with pool"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center select-none"
+            />
+          </motion.div>
+        ) : (
+          <div className="absolute inset-0">
+            <Image
+              src="/bg.png"
+              alt="Modern luxury estate with pool"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center select-none"
+            />
+          </div>
+        )}
 
         {/* OVERLAY */}
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/90 via-neutral-950/60 to-neutral-950/95" />

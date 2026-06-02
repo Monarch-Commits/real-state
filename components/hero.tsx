@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { useMediaQuery } from './hooks/useMediaQuery';
 
 export default function Hero() {
   const { scrollY } = useScroll();
@@ -11,23 +12,36 @@ export default function Hero() {
   // Parallax effect (background moves slower than scroll)
   const y = useTransform(scrollY, [0, 800], [0, 200]);
   const scale = useTransform(scrollY, [0, 800], [1.05, 1.15]);
-
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   return (
     <section
       className="relative h-screen min-h-[600px] w-full overflow-hidden bg-neutral-950 xl:h-[800px]"
       aria-label="Welcome and Featured Real Estate"
     >
       {/* BACKGROUND (PARALLAX) */}
-      <motion.div style={{ y, scale }} className="absolute inset-0 z-0">
-        <Image
-          src="/bg.png"
-          alt="Modern luxury estate with pool"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center select-none"
-        />
-      </motion.div>
+      {isDesktop ? (
+        <motion.div style={{ y, scale }} className="absolute inset-0 z-0">
+          <Image
+            src="/bg.png"
+            alt="Modern luxury estate with pool"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center select-none"
+          />
+        </motion.div>
+      ) : (
+        <div className="absolute inset-0">
+          <Image
+            src="/bg.png"
+            alt="Modern luxury estate with pool"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center select-none"
+          />
+        </div>
+      )}
 
       {/* OVERLAY */}
       <div
