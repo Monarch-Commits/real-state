@@ -3,13 +3,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Bed, Bath } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState } from 'react';
 import { PROPERTIES } from '../data/properties';
 
 export default function Page() {
   const [visible, setVisible] = useState(6);
   const [filter, setFilter] = useState<'All' | 'Villa' | 'Condo'>('All');
+
+  const { scrollY } = useScroll();
+
+  const y = useTransform(scrollY, [0, 800], [0, 180]);
+  const scale = useTransform(scrollY, [0, 800], [1.05, 1.12]);
 
   const filtered =
     filter === 'All' ? PROPERTIES : PROPERTIES.filter((p) => p.type === filter);
@@ -19,27 +24,46 @@ export default function Page() {
   const filters = ['All', 'Villa', 'Condo'] as const;
 
   return (
-    <main className="min-h-screen bg-neutral-950 pt-16 text-white lg:pt-20">
+    <main className="min-h-screen bg-neutral-950 text-white">
       {/* HERO */}
-      <section className="border-b border-white/5 py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <p className="text-[11px] tracking-[0.35em] text-neutral-500 uppercase">
+      <section className="relative flex min-h-[70vh] items-center overflow-hidden border-b border-white/5 py-24 sm:py-32">
+        {/* BACKGROUND */}
+        <motion.div
+          style={{ y, scale }}
+          className="absolute inset-0 will-change-transform"
+        >
+          <Image
+            src="/bg.png"
+            alt="Modern luxury estate with pool"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center select-none"
+          />
+        </motion.div>
+
+        {/* OVERLAY */}
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/90 via-neutral-950/60 to-neutral-950/95" />
+
+        {/* CONTENT */}
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+          <p className="text-[11px] tracking-[0.35em] text-gray-400 uppercase">
             Exclusive Listings
           </p>
 
-          <h1 className="mt-6 text-5xl leading-[1.05] font-medium sm:text-6xl lg:text-7xl">
+          <h1 className="mt-6 text-4xl leading-[1.05] font-medium sm:text-6xl lg:text-7xl">
             Discover <span className="text-amber-400">Luxury Homes</span>
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-400">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-400 sm:text-lg">
             Handpicked properties across the Philippines curated for modern
             living, long-term value, and architectural excellence.
           </p>
         </div>
       </section>
 
-      {/* FILTER BAR */}
-      <section className="sticky top-0 z-20 border-b border-white/5 bg-neutral-950/70 backdrop-blur-md">
+      {/* FILTER */}
+      <section className="sticky top-0 z-50 border-b border-white/5 bg-neutral-950/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
           <p className="text-sm text-neutral-500">
             {filtered.length} properties
@@ -67,18 +91,23 @@ export default function Page() {
       </section>
 
       {/* GRID */}
-      <section className="relative bg-[#0f0f10] py-24 sm:py-28">
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
+      <section className="relative bg-[#0b0b0c] py-24 sm:py-28">
+        {/* subtle pattern */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
+
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {items.map((property, i) => (
-              <Link key={property.id} href={`/properties/${property.id}`}>
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: i * 0.06 }}
-                  viewport={{ once: true }}
-                  className="group overflow-hidden rounded-md border border-white/5 bg-white/[0.02] transition hover:border-white/10"
+            {items.map((property) => (
+              <motion.div
+                key={property.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <Link
+                  href={`/properties/${property.id}`}
+                  className="group block overflow-hidden rounded-xl border border-white/5 bg-white/[0.02] transition hover:border-white/10"
                 >
                   {/* IMAGE */}
                   <div className="relative h-[360px] overflow-hidden">
@@ -92,11 +121,11 @@ export default function Page() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
                     {/* BADGES */}
-                    <div className="absolute top-4 left-4 rounded-full bg-black/50 px-3 py-1 text-[11px] text-amber-400 backdrop-blur-md">
+                    <div className="absolute top-4 left-4 rounded-full bg-black/40 px-3 py-1 text-[11px] text-amber-400 backdrop-blur-md">
                       {property.type}
                     </div>
 
-                    <div className="absolute top-4 right-4 rounded-full bg-black/50 px-3 py-1 text-[11px] text-white backdrop-blur-md">
+                    <div className="absolute top-4 right-4 rounded-full bg-black/40 px-3 py-1 text-[11px] text-white backdrop-blur-md">
                       {property.price}
                     </div>
                   </div>
@@ -124,8 +153,8 @@ export default function Page() {
                       </span>
                     </div>
                   </div>
-                </motion.div>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
           </div>
 
