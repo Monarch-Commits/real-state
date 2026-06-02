@@ -31,7 +31,7 @@ export default function FeaturedProperties() {
 
         {/* GRID */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {PROPERTIES.map((property, i) => {
+          {PROPERTIES.slice(0, 6).map((property, i) => {
             const CardContent = (
               <Link
                 href={`/properties/${property.id}`}
